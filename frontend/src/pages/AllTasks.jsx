@@ -1,5 +1,11 @@
+import Cards from "../components/home/Cards";
+
 function AllTasks() {
-  return <div>AllTasks</div>;
+  return (
+    <div>
+      <Cards />
+    </div>
+  );
 }
 
 export default AllTasks;
