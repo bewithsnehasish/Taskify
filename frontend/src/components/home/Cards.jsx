@@ -1,4 +1,7 @@
 import React from "react";
+import { VscHeart } from "react-icons/vsc";
+import { FaEdit } from "react-icons/fa";
+import { FaArrowTurnUp } from "react-icons/fa6";
 
 function Cards() {
   const data = [
@@ -35,16 +38,33 @@ function Cards() {
   ];
 
   return (
-    <div>
-      <div className="grid grid-cols-4 gap-4 p-4">
-        {data &&
-          data.map((items) => (
-            <div key={items.id} className=" bg-gray-700 rounded p-4">
-              <h2 className="text-xl font-semibold">{items.title}</h2>
+    <div className="grid grid-cols-4 gap-4 p-4">
+      {data &&
+        data.map((items) => (
+          <div
+            key={items.id}
+            className="flex flex-col justify-between bg-gray-700 rounded-xl p-4"
+          >
+            <div>
+              <h3 className="text-xl font-semibold">{items.title}</h3>
               <p className="text-gray-300">{items.description}</p>
             </div>
-          ))}
-      </div>
+            <div className="mt-4 w-full flex items-center ">
+              <button className="bg-red-400 p-2 rounded">In Complete</button>
+              <div>
+                <button>
+                  <VscHeart />
+                </button>
+                <button>
+                  <FaEdit />
+                </button>
+                <button>
+                  <FaArrowTurnUp />
+                </button>
+              </div>
+            </div>
+          </div>
+        ))}
     </div>
   );
 }
