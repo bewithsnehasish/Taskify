@@ -3,7 +3,7 @@ import { FaEdit } from "react-icons/fa";
 import { MdDeleteForever } from "react-icons/md";
 import { IoAddCircleSharp } from "react-icons/io5";
 
-function Cards({ home }) {
+function Cards({ home, Inputdiv }) {
   const data = [
     {
       id: 1,
@@ -75,10 +75,10 @@ function Cards({ home }) {
           </div>
         ))}
       {home === "true" && (
-        <div className="flex flex-col justify-center items-center bg-gray-700 rounded-xl p-4 hover:scale-105 hover:cursor-pointer transition-all duration-200">
+        <button className="flex flex-col justify-center items-center bg-gray-700 rounded-xl p-4 hover:scale-105 hover:cursor-pointer transition-all duration-200">
           <IoAddCircleSharp className="text-5xl" />
           <h2 className="text-2xl text-gray-300 mt-4">Add Task</h2>
-        </div>
+        </button>
       )}
     </div>
   );
