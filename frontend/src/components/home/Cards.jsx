@@ -3,7 +3,7 @@ import { FaEdit } from "react-icons/fa";
 import { MdDeleteForever } from "react-icons/md";
 import { IoAddCircleSharp } from "react-icons/io5";
 
-function Cards({ home, Inputdiv }) {
+function Cards({ home, setInputdiv }) {
   const data = [
     {
       id: 1,
@@ -44,38 +44,42 @@ function Cards({ home, Inputdiv }) {
 
   return (
     <div className="grid grid-cols-4 gap-4 p-4">
-      {data &&
-        data.map((items) => (
-          <div
-            key={items.id}
-            className="flex flex-col justify-between bg-gray-700 rounded-xl p-4"
-          >
-            <div>
-              <h3 className="text-xl font-semibold">{items.title}</h3>
-              <p className="text-gray-300">{items.description}</p>
-            </div>
-            <div className="mt-4 w-full flex items-center">
-              <button
-                className={`${items.status === "Incomplete" ? "bg-red-400" : "bg-green-700"} p-2 rounded w-3/6`}
-              >
-                {items.status}
+      {data.map((item) => (
+        <div
+          key={item.id}
+          className="flex flex-col justify-between bg-gray-700 rounded-xl p-4 hover:scale-105 hover:cursor-pointer transition-all duration-200"
+        >
+          <div>
+            <h3 className="text-xl font-semibold">{item.title}</h3>
+            <p className="text-gray-300">{item.description}</p>
+          </div>
+          <div className="mt-4 w-full flex items-center">
+            <button
+              className={`${
+                item.status === "Incomplete" ? "bg-red-400" : "bg-green-700"
+              } p-2 rounded w-3/6`}
+            >
+              {item.status}
+            </button>
+            <div className="text-white p-2 w-3/6 text-2xl flex justify-around font-semibold">
+              <button>
+                <VscHeart />
               </button>
-              <div className=" text-white p-2 w-3/6 text-2xl flex justify-around font-semibold ">
-                <button>
-                  <VscHeart />
-                </button>
-                <button>
-                  <FaEdit />
-                </button>
-                <button>
-                  <MdDeleteForever />
-                </button>
-              </div>
+              <button>
+                <FaEdit />
+              </button>
+              <button>
+                <MdDeleteForever />
+              </button>
             </div>
           </div>
-        ))}
-      {home === "true" && (
-        <button className="flex flex-col justify-center items-center bg-gray-700 rounded-xl p-4 hover:scale-105 hover:cursor-pointer transition-all duration-200">
+        </div>
+      ))}
+      {home == "true" && (
+        <button
+          className="flex flex-col justify-center items-center bg-gray-700 rounded-xl p-4 hover:scale-105 hover:cursor-pointer transition-all duration-200"
+          onClick={() => setInputdiv("fixed")}
+        >
           <IoAddCircleSharp className="text-5xl" />
           <h2 className="text-2xl text-gray-300 mt-4">Add Task</h2>
         </button>

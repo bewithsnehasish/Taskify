@@ -14,7 +14,7 @@ const AllTasks = () => {
             <IoAddCircleSharp className="text-4xl text-gray-300 hover:text-gray-500 hover:cursor-pointer transition-all duration-200" />
           </button>
         </div>
-        <Cards home={"true"} />
+        <Cards home={"true"} setInputdiv={setInputdiv} />
       </div>
       <InputData Inputdiv={Inputdiv} setInputdiv={setInputdiv} />
     </>
