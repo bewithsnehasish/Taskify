@@ -1,6 +1,16 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 
 const Signup = () => {
+  const [Data, setData] = useState({
+    username: "",
+    email: "",
+    password: "",
+  });
+
+  const change = (e) => {
+    setData({ ...Data, [e.target.name]: e.target.value });
+  };
   return (
     <div className=" h-[98vh] flex items-center justify-center />">
       <div className="p-4 w-2/6 bg-gray-800">

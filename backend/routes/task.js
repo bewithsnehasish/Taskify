@@ -1,5 +1,4 @@
 const router = require("express").Router();
-const task = require("../models/task");
 const Task = require("../models/task");
 const User = require("../models/user");
 const authenticationToken = require("./auth");
