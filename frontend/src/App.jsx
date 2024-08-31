@@ -11,12 +11,14 @@ import { useEffect } from "react";
 
 function App() {
   const navigate = useNavigate();
-  const { isLoggedIn } = useSelector((state) => state.auth.isLoggedIn);
+  const { isLoggedIn } = useSelector((state) => state.auth);
+  console.log(isLoggedIn);
   useEffect(() => {
     if (isLoggedIn == false) {
-      navigate("/signup");
+      navigate("/login");
     }
-  });
+  }, []);
+
   return (
     <div className="bg-gray-900 text-white h-screen p-2 relative">
       <Routes>
@@ -26,8 +28,6 @@ function App() {
           <Route path="/completedTasks" element={<CompletedTask />} />
           <Route path="/incompletedTasks" element={<IncompletedTask />} />
         </Route>
-      </Routes>
-      <Routes>
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
       </Routes>
