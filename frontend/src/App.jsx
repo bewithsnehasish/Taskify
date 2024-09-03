@@ -6,16 +6,23 @@ import { Routes, Route, useNavigate } from "react-router-dom";
 import IncompletedTask from "./pages/IncompletedTask";
 import Signup from "./pages/Signup";
 import Login from "./pages/Login";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
+import { authActions } from "./store/auth";
 
 function App() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const { isLoggedIn } = useSelector((state) => state.auth);
-  console.log(isLoggedIn);
+
   useEffect(() => {
-    if (isLoggedIn == false) {
-      navigate("/login");
+    const id = localStorage.getItem("id");
+    const token = localStorage.getItem("token");
+
+    if (id && token) {
+      dispatch(authActions.login({ id, token }));
+    } else if (!isLoggedIn) {
+      navigate("/signup");
     }
   }, []);
 

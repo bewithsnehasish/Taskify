@@ -1,10 +1,15 @@
 import { CgNotes } from "react-icons/cg";
 import { MdLabelImportant } from "react-icons/md";
 import { FaCheckDouble } from "react-icons/fa";
-import { TbNotebook, TbNotebookOff } from "react-icons/tb";
-import { Link } from "react-router-dom";
+import { TbNotebookOff } from "react-icons/tb";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { authActions } from "../../store/auth";
 
 function Sidebar() {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   const data = [
     {
       id: 1, // Added unique id for better key management
@@ -32,6 +37,13 @@ function Sidebar() {
     },
   ];
 
+  const handleLogout = () => {
+    dispatch(authActions.logout());
+    localStorage.removeItem("id");
+    localStorage.removeItem("token");
+    navigate("/login");
+  };
+
   return (
     <>
       <div>
@@ -52,7 +64,10 @@ function Sidebar() {
         ))}
       </div>
       <div>
-        <button className="bg-gray-700 w-full p-2 rounded hover:bg-red-500">
+        <button
+          className="bg-gray-700 w-full p-2 rounded hover:bg-red-500"
+          onClick={handleLogout}
+        >
           Log Out
         </button>
       </div>
