@@ -28,6 +28,6 @@ connectDatabase()
 app.use("/api/v1", userAPI);
 app.use("/api/v2", taskAPI);
 
-app.use("/", (req, res) => {
-  res.send("hello from backend");
-});
+// app.use("/", (req, res) => {
+//   res.send("hello from backend");
+// });
