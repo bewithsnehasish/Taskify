@@ -5,6 +5,8 @@ import { TbNotebookOff } from "react-icons/tb";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { authActions } from "../../store/auth";
+import { useEffect } from "react";
+import axios from "axios";
 
 function Sidebar() {
   const navigate = useNavigate();
@@ -43,6 +45,22 @@ function Sidebar() {
     localStorage.removeItem("token");
     navigate("/login");
   };
+
+  const headers = {
+    id: localStorage.getItem("id"),
+    authorization: `Bearer ${localStorage.getItem("token")}`,
+  };
+
+  useEffect(() => {
+    const fetch = async () => {
+      const response = await axios.get(
+        "http://localhost:3000/api/v2/get-all-task",
+        headers,
+      );
+      console.log(response);
+    };
+    fetch();
+  }, []);
 
   return (
     <>
