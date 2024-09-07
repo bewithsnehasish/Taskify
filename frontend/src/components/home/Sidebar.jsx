@@ -57,7 +57,6 @@ function Sidebar() {
         "http://localhost:3000/api/v2/get-all-task",
         headers,
       );
-      console.log(response);
     };
     fetch();
   }, []);
