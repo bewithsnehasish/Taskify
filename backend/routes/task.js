@@ -90,7 +90,7 @@ router.put(
       const TaskData = await Task.findById(id);
       const impTask = TaskData.important;
       await Task.findByIdAndUpdate(id, { important: !impTask });
-      res.status(200).json({ message: "Task updated successfully" });
+      res.status(200).json({ message: "Task updated important successfully" });
     } catch (error) {
       console.error(error);
       res.status(500).json({ message: "Internal Server Error" });
@@ -107,7 +107,7 @@ router.put(
       const { id } = req.params;
       const TaskData = await Task.findById(id);
       const completedTask = TaskData.completed;
-      await Task.findByIdAndUpdate(id, { important: !completedTask });
+      await Task.findByIdAndUpdate(id, { completed: !completedTask });
       res.status(200).json({ message: "Task updated successfully" });
     } catch (error) {
       console.error(error);

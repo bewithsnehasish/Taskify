@@ -40,7 +40,6 @@ const Login = () => {
       localStorage.setItem("token", token);
       dispatch(authActions.login(id, token)); // Ensure authActions.login is correctly implemented
       navigate("/");
-      console.log(response);
     } catch (err) {
       alert(
         "Login Error: " +

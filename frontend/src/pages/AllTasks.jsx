@@ -6,7 +6,6 @@ import axios from "axios";
 
 const AllTasks = () => {
   const [Inputdiv, setInputdiv] = useState("hidden");
-
   const [Data, setData] = useState();
   const headers = {
     id: localStorage.getItem("id"),
@@ -19,12 +18,11 @@ const AllTasks = () => {
         "http://localhost:3000/api/v2/get-all-task",
         { headers },
       );
+      console.log(response.data);
       setData(response.data);
     };
     fetch();
   }, []);
-
-  Data && console.log(Data);
 
   return (
     <>
