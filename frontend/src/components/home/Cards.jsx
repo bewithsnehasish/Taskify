@@ -1,46 +1,26 @@
+import axios from "axios";
 import { VscHeart } from "react-icons/vsc";
 import { FaEdit } from "react-icons/fa";
 import { MdDeleteForever } from "react-icons/md";
 import { IoAddCircleSharp } from "react-icons/io5";
 
-function Cards({ home, setInputdiv }) {
-  const data = [
-    {
-      id: 1,
-      title: "Complete React Documentation",
-      description:
-        "Read and understand the new React hooks introduced in the latest version.",
-      status: "Incomplete",
-    },
-    {
-      id: 2,
-      title: "Fix Bugs in User Authentication Module",
-      description:
-        "Address the bugs reported in the user authentication system and perform thorough testing.",
-      status: "Incomplete",
-    },
-    {
-      id: 3,
-      title: "Implement Dark Mode Toggle",
-      description:
-        "Add a feature to toggle between light and dark mode for better user experience.",
-      status: "Incomplete",
-    },
-    {
-      id: 4,
-      title: "Update Dependencies",
-      description:
-        "Update all project dependencies to their latest versions and ensure compatibility.",
-      status: "Incomplete",
-    },
-    {
-      id: 5,
-      title: "Create User Dashboard",
-      description:
-        "Design and implement the user dashboard with analytics and user activity insights.",
-      status: "Complete",
-    },
-  ];
+function Cards({ home, setInputdiv, data }) {
+  const headers = {
+    id: localStorage.getItem("id"),
+    authorization: `Bearer ${localStorage.getItem("token")}`,
+  };
+
+  const handlecompletedtask = async (id) => {
+    try {
+      await axios.put(
+        `http://localhost:3000/api/v2/update-complete-task/${id}`,
+        {},
+        { headers },
+      );
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <div className="grid grid-cols-4 gap-4 p-4">
@@ -51,15 +31,16 @@ function Cards({ home, setInputdiv }) {
         >
           <div>
             <h3 className="text-xl font-semibold">{item.title}</h3>
-            <p className="text-gray-300">{item.description}</p>
+            <p className="text-gray-300">{item.desc}</p>
           </div>
           <div className="mt-4 w-full flex items-center">
             <button
               className={`${
-                item.status === "Incomplete" ? "bg-red-400" : "bg-green-700"
+                item.completed === false ? "bg-red-400" : "bg-green-700"
               } p-2 rounded w-3/6`}
+              onClick={() => handlecompletedtask(item.id)}
             >
-              {item.status}
+              {item.completed === true ? "Completed" : "Incomplete"}
             </button>
             <div className="text-white p-2 w-3/6 text-2xl flex justify-around font-semibold">
               <button>
@@ -75,7 +56,7 @@ function Cards({ home, setInputdiv }) {
           </div>
         </div>
       ))}
-      {home == "true" && (
+      {home && (
         <button
           className="flex flex-col justify-center items-center bg-gray-700 rounded-xl p-4 hover:scale-105 hover:cursor-pointer transition-all duration-200"
           onClick={() => setInputdiv("fixed")}

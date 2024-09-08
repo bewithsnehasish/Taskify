@@ -5,7 +5,7 @@ import { TbNotebookOff } from "react-icons/tb";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { authActions } from "../../store/auth";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 
 function Sidebar() {
@@ -39,6 +39,8 @@ function Sidebar() {
     },
   ];
 
+  const [Data, setData] = useState();
+
   const handleLogout = () => {
     dispatch(authActions.logout());
     localStorage.removeItem("id");
@@ -55,19 +57,21 @@ function Sidebar() {
     const fetch = async () => {
       const response = await axios.get(
         "http://localhost:3000/api/v2/get-all-task",
-        headers,
+        { headers },
       );
+      setData(response.data);
     };
     fetch();
   }, []);
 
   return (
     <>
-      <div>
-        <h2 className="text-xl font-semibold">The Code Master</h2>
-        <h4 className="mb-1 text-gray-400">test@gmail.com</h4>
-        <hr />
-      </div>
+      {Data && (
+        <div>
+          <h2 className="text-xl font-semibold">{Data.username}</h2>
+          <h4 className="mb-1 text-gray-400">{Data.email}</h4>
+        </div>
+      )}
       <div>
         {data.map((item) => (
           <Link
