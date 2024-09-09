@@ -61,7 +61,9 @@ function Sidebar() {
       );
       setData(response.data);
     };
-    fetch();
+    if (localStorage.getItem("id") && localStorage.getItem("token")) {
+      fetch();
+    }
   }, []);
 
   return (

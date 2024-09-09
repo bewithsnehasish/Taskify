@@ -68,15 +68,35 @@ router.delete("/delete-task/:id", authenticationToken, async (req, res) => {
 });
 
 //Update task
+// router.put("/update-task/:id", authenticationToken, async (req, res) => {
+//   try {
+//     const { id } = req.params;
+//     const { title, desc } = req.body;
+//     await Task.findByIdAndUpdate(id, { title, desc });
+//     res.status(200).json({ message: "Task updated successfully" });
+//   } catch (error) {
+//     console.error(error);
+//     res.status(500).json({ message: "Internal Server Error" });
+//   }
+// });
+
 router.put("/update-task/:id", authenticationToken, async (req, res) => {
   try {
     const { id } = req.params;
     const { title, desc } = req.body;
-    await Task.findByIdAndUpdate(id, { title, desc });
-    res.status(200).json({ message: "Task updated successfully" });
+    const updatedTask = await Task.findByIdAndUpdate(
+      id,
+      { title, desc },
+      { new: true },
+    );
+    if (!updatedTask) {
+      return res.status(404).json({ message: "Task not found" });
+    }
+    res.json(updatedTask);
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: "Internal Server Error" });
+    res
+      .status(500)
+      .json({ message: "Error updating task", error: error.message });
   }
 });
 
@@ -141,12 +161,31 @@ router.get("/get-complete-task", authenticationToken, async (req, res) => {
     const userId = req.headers["id"];
     const Data = await User.findById(userId).populate({
       path: "tasks",
-      match: { complete: true },
+      match: { completed: true },
       options: { sort: { createdAt: -1 } },
     });
     const CompletedTask = Data.tasks;
     res.status(200).json({
       data: CompletedTask,
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json("Internal Server Error");
+  }
+});
+
+//Get All Incomplete Task
+router.get("/get-incomplete-task", authenticationToken, async (req, res) => {
+  try {
+    const userId = req.headers["id"];
+    const Data = await User.findById(userId).populate({
+      path: "tasks",
+      match: { completed: false },
+      options: { sort: { createdAt: -1 } },
+    });
+    const IncompleteTask = Data.tasks;
+    res.status(200).json({
+      data: IncompleteTask,
     });
   } catch (error) {
     console.error(error);
