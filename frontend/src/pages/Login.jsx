@@ -8,6 +8,7 @@ const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { isLoggedIn } = useSelector((state) => state.auth);
+  const url = "https://taskify-hf0m.onrender.com";
 
   if (isLoggedIn === true) {
     navigate("/");
@@ -32,7 +33,8 @@ const Login = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:3000/api/v1/login",
+        // "http://localhost:3000/api/v1/login",
+        `${url}/api/v1/login`,
         data,
       );
       const { id, token } = response.data;

@@ -12,6 +12,8 @@ const Signup = () => {
     email: "",
     password: "",
   });
+  // const url = "http://localhost:3000";
+  const url = "https://taskify-hf0m.onrender.com";
 
   const change = (e) => {
     const { name, value } = e.target;
@@ -24,10 +26,7 @@ const Signup = () => {
       if (Data.username === "" || Data.email === "" || Data.password === "") {
         alert("Please fill all the fields");
       } else {
-        const response = await axios.post(
-          "http://localhost:3000/api/v1/signup",
-          Data,
-        );
+        const response = await axios.post(`${url}/api/v1/signup`, Data);
         history("/login");
         alert("Signup successful");
       }

@@ -11,6 +11,7 @@ import axios from "axios";
 function Sidebar() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const url = "https://taskify-hf0m.onrender.com";
 
   const data = [
     {
@@ -56,8 +57,11 @@ function Sidebar() {
   useEffect(() => {
     const fetch = async () => {
       const response = await axios.get(
-        "http://localhost:3000/api/v2/get-all-task",
-        { headers },
+        `${url}/api/v2/get-all-task`,
+        // "http://localhost:3000/api/v2/get-all-task",
+        {
+          headers,
+        },
       );
       setData(response.data);
     };

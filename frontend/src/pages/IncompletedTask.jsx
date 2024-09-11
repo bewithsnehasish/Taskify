@@ -12,6 +12,8 @@ const IncompletedTask = () => {
     title: "",
     desc: "",
   });
+  // const url = "http://localhost:3000";
+  const url = "https://taskify-hf0m.onrender.com";
 
   const headers = {
     id: localStorage.getItem("id"),
@@ -20,10 +22,9 @@ const IncompletedTask = () => {
 
   const fetchTasks = useCallback(async () => {
     try {
-      const response = await axios.get(
-        "http://localhost:3000/api/v2/get-incomplete-task",
-        { headers },
-      );
+      const response = await axios.get(`${url}/api/v2/get-incomplete-task`, {
+        headers,
+      });
       const tasksData = response.data.data || response.data;
       setTasks(Array.isArray(tasksData) ? tasksData : []);
     } catch (error) {

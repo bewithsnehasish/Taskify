@@ -11,6 +11,8 @@ const InputData = ({
 }) => {
   const [data, setData] = useState({ title: "", desc: "" });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  // const url = "http://localhost:3000";
+  const url = "https://taskify-hf0m.onrender.com";
 
   useEffect(() => {
     setData({ title: updatedTasks.title, desc: updatedTasks.desc });
@@ -35,14 +37,12 @@ const InputData = ({
     try {
       if (updatedTasks.id) {
         // This is an edit operation
-        await axios.put(
-          `http://localhost:3000/api/v2/update-task/${updatedTasks.id}`,
-          data,
-          { headers },
-        );
+        await axios.put(`${url}/api/v2/update-task/${updatedTasks.id}`, data, {
+          headers,
+        });
       } else {
         // This is a create operation
-        await axios.post("http://localhost:3000/api/v2/create-task", data, {
+        await axios.post(`${url}/api/v2/create-task`, data, {
           headers,
         });
       }

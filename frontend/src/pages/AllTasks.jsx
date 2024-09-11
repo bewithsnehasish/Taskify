@@ -12,6 +12,8 @@ const AllTasks = () => {
     title: "",
     desc: "",
   });
+  // const url = "http://localhost:3000";
+  const url = "https://taskify-hf0m.onrender.com";
 
   const headers = {
     id: localStorage.getItem("id"),
@@ -20,10 +22,9 @@ const AllTasks = () => {
 
   const fetchTasks = useCallback(async () => {
     try {
-      const response = await axios.get(
-        "http://localhost:3000/api/v2/get-all-task",
-        { headers },
-      );
+      const response = await axios.get(`${url}/api/v2/get-all-task`, {
+        headers,
+      });
       setTasks(response.data.tasks);
     } catch (error) {
       console.error("Error fetching tasks:", error);

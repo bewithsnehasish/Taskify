@@ -6,6 +6,8 @@ import { IoAddCircleSharp } from "react-icons/io5";
 import { FaHeart } from "react-icons/fa";
 
 function Cards({ home, setInputdiv, data, onTasksUpdated, setUpdatedTasks }) {
+  const url = "https://taskify-hf0m.onrender.com";
+  // const url = "http://localhost:3000";
   const headers = {
     id: localStorage.getItem("id"),
     authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -15,7 +17,7 @@ function Cards({ home, setInputdiv, data, onTasksUpdated, setUpdatedTasks }) {
   const handlecompletedtask = async (id) => {
     try {
       await axios.put(
-        `http://localhost:3000/api/v2/update-completed-task/${id}`,
+        `${url}/api/v2/update-completed-task/${id}`,
         {},
         { headers },
       );
@@ -29,7 +31,7 @@ function Cards({ home, setInputdiv, data, onTasksUpdated, setUpdatedTasks }) {
   const handleimportant = async (id) => {
     try {
       await axios.put(
-        `http://localhost:3000/api/v2/update-important-task/${id}`,
+        `${url}/api/v2/update-important-task/${id}`,
         {},
         { headers },
       );
@@ -42,7 +44,7 @@ function Cards({ home, setInputdiv, data, onTasksUpdated, setUpdatedTasks }) {
   // Handles the click event for the "Delete" button
   const handledelete = async (id) => {
     try {
-      await axios.delete(`http://localhost:3000/api/v2/delete-task/${id}`, {
+      await axios.delete(`${url}/api/v2/delete-task/${id}`, {
         headers,
       });
       onTasksUpdated(); // Call this to update the task list in the parent component
