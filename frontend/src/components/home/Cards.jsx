@@ -82,7 +82,7 @@ function Cards({ home, setInputdiv, data, onTasksUpdated, setUpdatedTasks }) {
             <div className="text-white p-2 w-3/6 text-2xl flex justify-around font-semibold">
               <button onClick={() => handleimportant(item._id)}>
                 {item.important ? (
-                  <FaHeart className="fill-red-600 ease-in-out duration-75" />
+                  <FaHeart className="fill-red-600 ease-in-out " />
                 ) : (
                   <VscHeart />
                 )}
