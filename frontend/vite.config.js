@@ -1,4 +1,5 @@
 import { defineConfig } from "vite";
+import path from "path";
 import react from "@vitejs/plugin-react";
 import { VitePWA } from "vite-plugin-pwa";
 
@@ -39,4 +40,9 @@ const manifestForPlugin = {
 
 export default defineConfig({
   plugins: [react(), VitePWA(manifestForPlugin)],
+  resolve: {
+    alias: {
+      "@": path.resolve(__dirname, "./src"),
+    },
+  },
 });

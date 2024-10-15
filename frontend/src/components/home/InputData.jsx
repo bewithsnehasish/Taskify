@@ -1,6 +1,7 @@
+import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { useEffect, useState } from "react";
 import { RxCross2 } from "react-icons/rx";
+import { IoCheckboxOutline } from "react-icons/io5";
 
 const InputData = ({
   isVisible,
@@ -11,8 +12,6 @@ const InputData = ({
 }) => {
   const [data, setData] = useState({ title: "", desc: "" });
   const [isSubmitting, setIsSubmitting] = useState(false);
-  // const url = "http://localhost:3000";
-  // const url = "https://taskify-hf0m.onrender.com";
   const url = import.meta.env.VITE_API_URL;
 
   useEffect(() => {
@@ -37,12 +36,10 @@ const InputData = ({
     setIsSubmitting(true);
     try {
       if (updatedTasks.id) {
-        // This is an edit operation
         await axios.put(`${url}/api/v2/update-task/${updatedTasks.id}`, data, {
           headers,
         });
       } else {
-        // This is a create operation
         await axios.post(`${url}/api/v2/create-task`, data, {
           headers,
         });
@@ -66,45 +63,98 @@ const InputData = ({
   if (!isVisible) return null;
 
   return (
-    <>
-      <div className="fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center">
-        <div className="w-full max-w-md bg-gray-900 p-4 rounded">
-          <div className="flex justify-end mb-4">
-            <button className="text-2xl" onClick={resetForm}>
-              <RxCross2 />
-            </button>
+    <div className="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm flex justify-center items-center z-50 px-4 py-6 overflow-y-auto">
+      <div className="w-full max-w-lg bg-gray-800 p-4 sm:p-6 md:p-8 rounded-lg shadow-xl transform transition-all duration-300 ease-in-out m-auto">
+        <div className="flex items-center justify-between mb-4 sm:mb-6">
+          <div className="flex items-center">
+            <IoCheckboxOutline className="text-blue-500 text-2xl sm:text-3xl mr-2" />
+            <h2 className="text-xl sm:text-2xl font-bold text-white">
+              {updatedTasks.id ? "Update Task" : "New Task"}
+            </h2>
           </div>
-          <input
-            type="text"
-            placeholder="title"
-            name="title"
-            className="py-3 px-2 rounded w-full bg-gray-700"
-            value={data.title}
-            onChange={change}
-          />
-          <textarea
-            name="desc"
-            cols={30}
-            rows={10}
-            placeholder="Description..."
-            className="px-3 py-2 rounded w-full bg-gray-700 my-3"
-            value={data.desc}
-            onChange={change}
-          ></textarea>
           <button
-            className="px-3 py-2 bg-blue-500 rounded text-black text-xl hover:bg-blue-300 transition-all duration-200"
+            className="text-gray-400 hover:text-white transition-colors duration-200"
+            onClick={resetForm}
+            aria-label="Close"
+          >
+            <RxCross2 className="text-xl sm:text-2xl" />
+          </button>
+        </div>
+        <div className="space-y-4">
+          <div>
+            <label
+              htmlFor="title"
+              className="block text-sm font-medium text-gray-300 mb-1"
+            >
+              Title
+            </label>
+            <input
+              type="text"
+              id="title"
+              name="title"
+              placeholder="Enter task title"
+              className="w-full px-3 py-2 sm:px-4 sm:py-2 rounded-md bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm sm:text-base"
+              value={data.title}
+              onChange={change}
+            />
+          </div>
+          <div>
+            <label
+              htmlFor="desc"
+              className="block text-sm font-medium text-gray-300 mb-1"
+            >
+              Description
+            </label>
+            <textarea
+              id="desc"
+              name="desc"
+              rows={5}
+              placeholder="Enter task description..."
+              className="w-full px-3 py-2 sm:px-4 sm:py-2 rounded-md bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none text-sm sm:text-base"
+              value={data.desc}
+              onChange={change}
+            ></textarea>
+          </div>
+        </div>
+        <div className="mt-6">
+          <button
+            className="w-full px-4 py-2 sm:py-3 bg-blue-500 text-white rounded-md font-semibold hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-800 transition-colors duration-200 text-sm sm:text-base"
             onClick={submitData}
             disabled={isSubmitting}
           >
-            {isSubmitting
-              ? "Submitting..."
-              : updatedTasks.id
-                ? "Update"
-                : "Submit"}
+            {isSubmitting ? (
+              <span className="flex items-center justify-center">
+                <svg
+                  className="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                >
+                  <circle
+                    className="opacity-25"
+                    cx="12"
+                    cy="12"
+                    r="10"
+                    stroke="currentColor"
+                    strokeWidth="4"
+                  ></circle>
+                  <path
+                    className="opacity-75"
+                    fill="currentColor"
+                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                  ></path>
+                </svg>
+                Submitting...
+              </span>
+            ) : updatedTasks.id ? (
+              "Update Task"
+            ) : (
+              "Create Task"
+            )}
           </button>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
