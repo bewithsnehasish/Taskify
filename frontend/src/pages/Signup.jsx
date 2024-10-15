@@ -13,7 +13,8 @@ const Signup = () => {
     password: "",
   });
   // const url = "http://localhost:3000";
-  const url = "https://taskify-hf0m.onrender.com";
+  // const url = "https://taskify-hf0m.onrender.com";
+  const url = import.meta.env.VITE_API_URL;
 
   const change = (e) => {
     const { name, value } = e.target;

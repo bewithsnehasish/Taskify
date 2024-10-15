@@ -12,7 +12,8 @@ const InputData = ({
   const [data, setData] = useState({ title: "", desc: "" });
   const [isSubmitting, setIsSubmitting] = useState(false);
   // const url = "http://localhost:3000";
-  const url = "https://taskify-hf0m.onrender.com";
+  // const url = "https://taskify-hf0m.onrender.com";
+  const url = import.meta.env.VITE_API_URL;
 
   useEffect(() => {
     setData({ title: updatedTasks.title, desc: updatedTasks.desc });

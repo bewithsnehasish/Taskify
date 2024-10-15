@@ -6,8 +6,11 @@ import { IoAddCircleSharp } from "react-icons/io5";
 import { FaHeart } from "react-icons/fa";
 
 function Cards({ home, setInputdiv, data, onTasksUpdated, setUpdatedTasks }) {
-  const url = "https://taskify-hf0m.onrender.com";
+  // const url = "https://taskify-hf0m.onrender.com";
   // const url = "http://localhost:3000";
+  // const url = process.env.REACT_APP_API_URL;
+  const url = import.meta.env.VITE_API_URL;
+
   const headers = {
     id: localStorage.getItem("id"),
     authorization: `Bearer ${localStorage.getItem("token")}`,
