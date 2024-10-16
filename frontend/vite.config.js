@@ -40,6 +40,9 @@ const manifestForPlugin = {
 
 export default defineConfig({
   plugins: [react(), VitePWA(manifestForPlugin)],
+  define: {
+    "process.env": {},
+  },
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
