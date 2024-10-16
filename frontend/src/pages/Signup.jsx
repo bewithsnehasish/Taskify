@@ -7,7 +7,8 @@ import { IoCheckboxOutline } from "react-icons/io5";
 const Signup = () => {
   const navigate = useNavigate();
   const { isLoggedIn } = useSelector((state) => state.auth);
-  const url = import.meta.env.VITE_API_URL;
+  const url = "https://taskify-hf0m.onrender.com";
+  // const url = import.meta.env.VITE_API_URL;
 
   const [data, setData] = useState({
     username: "",

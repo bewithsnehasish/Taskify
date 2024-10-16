@@ -9,7 +9,8 @@ const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { isLoggedIn } = useSelector((state) => state.auth);
-  const url = import.meta.env.VITE_API_URL;
+  const url = "https://taskify-hf0m.onrender.com";
+  // const url = import.meta.env.VITE_API_URL;
 
   useEffect(() => {
     if (isLoggedIn === true) {
