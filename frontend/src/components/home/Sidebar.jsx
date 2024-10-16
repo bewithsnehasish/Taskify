@@ -12,7 +12,8 @@ import axios from "axios";
 function Sidebar() {
   const dispatch = useDispatch();
   const location = useLocation();
-  const url = import.meta.env.VITE_API_URL;
+  const url = "https://taskify-hf0m.onrender.com";
+  // const url = import.meta.env.VITE_API_URL;
   const [userData, setUserData] = useState(null);
 
   const data = [

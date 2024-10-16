@@ -10,12 +10,7 @@ dotenv.config();
 const app = express();
 const port = process.env.PORT;
 
-const corsOptions = {
-  origin: process.env.FRONTEND_URL,
-  optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
-};
-
-app.use(cors(corsOptions));
+app.use(cors());
 app.use(express.json());
 
 // Connect to the database before starting the server
