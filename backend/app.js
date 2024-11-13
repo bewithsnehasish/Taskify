@@ -3,6 +3,7 @@ const cors = require("cors");
 const dotenv = require("dotenv");
 const userAPI = require("./routes/user");
 const taskAPI = require("./routes/task");
+const cronJob = require("./routes/cronjob");
 const connectDatabase = require("./database/database"); // Make sure this is correctly implemented
 
 dotenv.config();
@@ -27,6 +28,7 @@ connectDatabase()
 // Routes
 app.use("/api/v1", userAPI);
 app.use("/api/v2", taskAPI);
+app.use("/api", cronJob);
 
 // app.use("/", (req, res) => {
 //   res.send("hello from backend");
